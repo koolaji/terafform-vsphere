@@ -30,32 +30,32 @@ locals {
     "vm1" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
-      cluster    = "Cluster1",  # Added missing cluster parameter
       network    = "Local-Network",
       ip         = "192.168.0.4",
       cpu        = 4,
       memory     = 8192,
-      disk_size  = 100
+      disk_size  = 100,
+      tags       = { environment = "dev", role = "LDAP_01" }
     },
     "vm2" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
-      cluster    = "Cluster1",  # Added missing cluster parameter
       network    = "Local-Network",
       ip         = "192.168.0.5",
       cpu        = 4,
       memory     = 8192,
-      disk_size  = 100
+      disk_size  = 100,
+      tags       = { environment = "dev", role = "LDAP_02" }
     },
     "vm3" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
-      cluster    = "Cluster1",  # Added missing cluster parameter
       network    = "Local-Network",
       ip         = "192.168.0.6",
       cpu        = 4,
       memory     = 8192,
-      disk_size  = 100
+      disk_size  = 100,
+      tags       = { environment = "dev", role = "GitLab-EE" }
     }
   }
 }
@@ -81,5 +81,5 @@ module "vms" {
   vm_gateway    = var.vm_gateway
   vm_dns_servers = var.vm_dns_servers
   
-  # Removed the tags parameter since we're not using it anymore
+  tags          = each.value.tags
 }
