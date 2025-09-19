@@ -75,10 +75,10 @@ variable "vm_dns_servers" {
   default     = ["8.8.8.8", "8.8.4.4"]
 }
 
-variable "ssh_private_key_path" {
-  description = "Path to the SSH private key for remote-exec provisioner"
+variable "ssh_password" {
+  description = "SSH password for remote-exec provisioner"
   type        = string
-  default     = "~/.ssh/id_rsa"
+  sensitive   = true
 }
 
 variable "ssh_user" {

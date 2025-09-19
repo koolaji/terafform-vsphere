@@ -13,3 +13,7 @@ vm_domain        = "local"
 # Network configuration
 vm_gateway       = "192.168.0.1"
 vm_dns_servers   = ["8.8.8.8", "8.8.4.4"]
+
+# SSH configuration
+ssh_user         = "ubuntu"
+ssh_password     = "your-ssh-password-here"

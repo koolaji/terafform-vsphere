@@ -74,7 +74,7 @@ resource "vsphere_virtual_machine" "vm" {
       type        = "ssh"
       user        = var.ssh_user
       host        = var.vm_ip
-      private_key = file(var.ssh_private_key_path)
+      password    = var.ssh_password
     }
 
     inline = [

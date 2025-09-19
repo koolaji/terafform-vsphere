@@ -86,6 +86,6 @@ module "vms" {
   vm_dns_servers = var.vm_dns_servers
   
   # SSH parameters for remote-exec provisioner
-  ssh_private_key_path = var.ssh_private_key_path
-  ssh_user             = var.ssh_user
+  ssh_password  = var.ssh_password
+  ssh_user      = var.ssh_user
 }
