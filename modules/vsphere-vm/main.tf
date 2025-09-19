@@ -78,8 +78,7 @@ resource "vsphere_virtual_machine" "vm" {
     }
 
     inline = [
-      "sudo sed -i '/192.168.0.100/d' /etc/netplan/*.yaml",  # Remove the static IP from netplan
-      "echo 'network:\\n  version: 2\\n  ethernets:\\n    ens192:\\n      dhcp4: false\\n      addresses: [${var.vm_ip}/24]\\n      gateway4: ${var.vm_gateway}\\n      nameservers:\\n        addresses: [${join(", ", var.vm_dns_servers)}]' | sudo tee /etc/netplan/01-netcfg.yaml",
+      "sudo rm /etc/netplan/50*.yaml*",  # Remove the static IP from netplan
       "sudo netplan apply",
       "echo 'IP configuration updated to ${var.vm_ip}'"
     ]
