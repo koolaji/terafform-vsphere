@@ -27,17 +27,17 @@ provider "vsphere" {
 # Define VM configurations for this environment
 locals {
   vms = {
-#    "LDAP_01" = {
-#      datacenter = "NCH-01",
-#      datastore  = "datastore1",
-#      vsphere_cluster = "Cluster01",
-#      network    = "Local-Network",
-#      ip         = "192.168.0.4",
-#      netmask    = 24,  # Added netmask parameter
-#      cpu        = 4,
-#      memory     = 8192,
-#      disk_size  = 100
-#    },
+   "LDAP_01" = {
+     datacenter = "NCH-01",
+     datastore  = "datastore1",
+     vsphere_cluster = "Cluster01",
+     network    = "Local-Network",
+     ip         = "192.168.0.4",
+     netmask    = 24,  # Added netmask parameter
+     cpu        = 4,
+     memory     = 8192,
+     disk_size  = 100
+   },
 #    "LDAP_02" = {
 #      datacenter = "NCH-01",
 #      datastore  = "datastore1",
