@@ -18,7 +18,7 @@
   "ssh-username": "username",
   "ssh-password": "xxxx",
   
-  "iso-url": "https://releases.ubuntu.com/22.04/ubuntu-22.04.3-live-server-amd64.iso",
-  "iso-checksum": "a4acfda10b18da50e2ec50ccaf860d7f20823f8f3100053d57a9a017a7c9e86f",
+  "iso-url": "https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso",
+  "iso-checksum": "9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0",
   "iso-checksum-type": "sha256"
 }

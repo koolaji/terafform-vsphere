@@ -1,0 +1,22 @@
+# Packer variables files with sensitive information
+variables.json
+*-variables.json
+*.pkrvars.hcl
+
+# Actual preseed.cfg files (keep only templates/samples in git)
+preseed.cfg
+
+# Logs and temporary files
+*.log
+packer_cache/
+output-*/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
