@@ -14,8 +14,7 @@
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
       "cluster": "{{user `cluster`}}",
-      "resource_pool": "Resources",
-
+      "resource_pool": "/{{user `datacenter`}}/host/{{user `cluster`}}/Resources",
       "convert_to_template": "true",
     
       "network_adapters": [
