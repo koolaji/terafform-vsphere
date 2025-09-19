@@ -88,6 +88,9 @@ resource "vsphere_virtual_machine" "vm" {
   lifecycle {
     ignore_changes = [
       annotation,
+      clone[0].template_uuid,
+      ept_rvi_mode,
+      hv_mode
     ]
   }
 }
