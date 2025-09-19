@@ -78,7 +78,8 @@ resource "vsphere_virtual_machine" "vm" {
     }
 
     inline = [
-      "sudo rm /etc/netplan/50*.yaml*",  # Remove the static IP from netplan
+      "sudo rm /etc/netplan/50*.yaml*", 
+      "sudo rm /etc/cloud/cloud.cfg.d/90-installer-network.cfg",
       "sudo netplan apply",
       "echo 'IP configuration updated to ${var.vm_ip}'"
     ]
@@ -87,7 +88,6 @@ resource "vsphere_virtual_machine" "vm" {
   lifecycle {
     ignore_changes = [
       annotation,
-      clone[0].template_uuid
     ]
   }
 }
