@@ -15,8 +15,8 @@
   "vm-mem-size": "2048",
   "vm-disk-size": "20480",
     
-  "ssh-username": "ubuntu",
-  "ssh-password": "ubuntu",
+  "ssh-username": "packer",
+  "ssh-password": "packer",
   "ssh-host": "192.168.0.100",
 
   "iso-url": "https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso",
