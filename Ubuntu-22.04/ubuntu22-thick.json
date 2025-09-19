@@ -14,7 +14,7 @@
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
       "cluster": "{{user `cluster`}}",
-      "resource_pool": "{{user `cluster`}}/Resources",
+      "resource_pool": "Resources",
 
       "convert_to_template": "true",
     
