@@ -76,7 +76,7 @@ variable "vm_dns_servers" {
 }
 
 variable "tags" {
-  description = "Tags to apply to the VM"
-  type        = map(string)
-  default     = {}
+  description = "Tags to apply to the VM (as a list of strings)"
+  type        = list(string)
+  default     = []
 }

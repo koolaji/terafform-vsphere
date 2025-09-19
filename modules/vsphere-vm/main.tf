@@ -67,6 +67,4 @@ resource "vsphere_virtual_machine" "vm" {
       clone[0].template_uuid
     ]
   }
-
-  tags = var.tags
 }
