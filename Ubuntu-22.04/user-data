@@ -6,23 +6,32 @@ autoinstall:
     layout: us
   identity:
     hostname: ubuntu-server
-    username: username
-    password: $6$rounds=4096$8dkK1P/oE$34k5MnvuNB.tKrEuqBDZNZ8ybXb3r7tYisweXXGIwGzUVPdPaYTySwhqS9PeKeW/kRRW1w4QI8WhBBaCgAZ.g1
+    username: ubuntu
+    password: ubuntu
   ssh:
     install-server: true
     allow-pw: true
   storage:
     layout:
       name: direct
+  network:
+    network:
+      version: 2
+      ethernets:
+        ens192:
+          dhcp4: false
+          addresses: [192.168.0.100/24]  # Static IP
+          gateway4: 192.168.0.1  # Your gateway
+          nameservers:
+            addresses: [8.8.8.8, 8.8.4.4]
   packages:
     - open-vm-tools
     - openssh-server
-    - net-tools
     - perl
     - vim
   user-data:
     disable_root: false
     timezone: UTC
   late-commands:
-    - echo 'username ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/username
-    - chmod 440 /target/etc/sudoers.d/username
+    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+    - chmod 440 /target/etc/sudoers.d/ubuntu

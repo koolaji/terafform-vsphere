@@ -14,7 +14,8 @@
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
       "host": "{{user `host`}}",
-      "convert_to_template": "true",
+
+      "convert_to_template": true,
     
       "network_adapters": [
         {
@@ -29,6 +30,9 @@
   
       "ssh_username": "{{user `ssh-username`}}",
       "ssh_password": "{{user `ssh-password`}}",
+      "ssh_host": "{{user `ssh-host`}}",
+      "ssh_timeout": "30m",
+      "ssh_handshake_attempts": "100",
   
       "CPUs": "{{user `vm-cpu-num`}}",
       "RAM": "{{user `vm-mem-size`}}",
@@ -45,14 +49,19 @@
       "iso_urls": "{{user `iso-url`}}",
       "iso_checksum": "{{user `iso-checksum-type`}}:{{user `iso-checksum`}}",
 
-      "floppy_files": ["./preseed.cfg"],
+      "cd_files": [
+        "./meta-data",
+        "./user-data"
+  ],
+      "cd_label": "cidata",
+      
+      "boot_wait": "5s",
       "boot_command": [
         "<esc><wait>",
-        "linux /casper/vmlinuz --- autoinstall ds=nocloud;s=/floppy ",
-        "<enter><wait>",
-        "initrd /casper/initrd",
-        "<enter><wait>",
-        "boot<enter>"
+        "e<wait>",
+        "<down><down><down><end>",
+        " autoinstall ds=nocloud;<wait>",
+        "<f10>"
       ]
     }
   ],
