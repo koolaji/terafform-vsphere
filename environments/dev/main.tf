@@ -56,8 +56,8 @@ locals {
       network    = "Local-Network",
       ip         = "192.168.0.6",
       netmask    = 24,  # Added netmask parameter
-      cpu        = 4,
-      memory     = 8192,
+      cpu        = 8,
+      memory     = 16000,
       disk_size  = 100
     }
   }
