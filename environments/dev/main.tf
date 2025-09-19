@@ -38,7 +38,7 @@ locals {
      memory     = 8192,
      disk_size  = 100
    },
-   "T-LDAP_02" = {
+   "T-LDAP-02" = {
      datacenter = "NCH-01",
      datastore  = "datastore1",
      vsphere_cluster = "Cluster01",
