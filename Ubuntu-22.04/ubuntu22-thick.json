@@ -21,12 +21,11 @@
       "boot_order": "disk,cdrom",
       "guest_os_type": "ubuntu64Guest",
       "ssh_username": "ubuntu",
-      "ssh_password": "",  // Empty password initially
+      "ssh_password": "ubuntu",  
       "ssh_host": "{{user `ssh-host`}}",
       "ssh_port": 22,
       "ssh_timeout": "30m",
       "ssh_handshake_attempts": "100",
-      "ssh_private_key_file": "./id_rsa",  // Use SSH key for initial connection
       "CPUs": "{{user `vm-cpu-num`}}",
       "RAM": "{{user `vm-mem-size`}}",
       "RAM_reserve_all": true,

@@ -7,7 +7,7 @@ autoinstall:
   identity:
     hostname: ubuntu-server
     username: ubuntu
-    # No password - we'll set it later in provisioner
+    password: $6$85zZ19sPF3HQLtmu$StEGlCDSkuo0rTsnwoeVmvnnqRC9RRMx/3stlq8SMLznXgPZjOv69k9QwIZ9TBPfZjrMMUAra8LUAxjLzKN6Q.
   ssh:
     install-server: true
     allow-pw: true
