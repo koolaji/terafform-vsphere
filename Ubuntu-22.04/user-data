@@ -1,0 +1,28 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  identity:
+    hostname: ubuntu-server
+    username: username
+    password: $6$rounds=4096$8dkK1P/oE$34k5MnvuNB.tKrEuqBDZNZ8ybXb3r7tYisweXXGIwGzUVPdPaYTySwhqS9PeKeW/kRRW1w4QI8WhBBaCgAZ.g1
+  ssh:
+    install-server: true
+    allow-pw: true
+  storage:
+    layout:
+      name: direct
+  packages:
+    - open-vm-tools
+    - openssh-server
+    - net-tools
+    - perl
+    - vim
+  user-data:
+    disable_root: false
+    timezone: UTC
+  late-commands:
+    - echo 'username ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/username
+    - chmod 440 /target/etc/sudoers.d/username
