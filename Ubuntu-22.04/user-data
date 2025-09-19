@@ -1,6 +1,14 @@
 #cloud-config
 autoinstall:
   version: 1
+  apt:
+    geoip: true
+    preserve_sources_list: false
+    primary:
+      - arches: [amd64, i386]
+        uri: http://archive.ubuntu.com/ubuntu
+      - arches: [default]
+        uri: http://ports.ubuntu.com/ubuntu-ports
   early-commands:
     - systemctl stop ssh
   locale: en_US
@@ -9,13 +17,10 @@ autoinstall:
   identity:
     hostname: ubuntu-server
     username: ubuntu
-    password: '$6$xyz$74AlwKA3Z5n2L6ujMEX2lnxYbpXwEvykhLQCT5LgTfvFGYgCHa2djrLcdgaLxF0f9RCJlQwUgxHpDlX1vTLXw1'
+    password: "$6$rounds=4096$J86aZz0Q$kTUvkqbZJWQZP.e/sWXPx8J5C1y1Mu0hPWpMnRJCaKKUmM5CU8Z9ZljnTVkm3GtQVercC3m3NzBxj8hzxvBZ51"
   ssh:
     install-server: true
     allow-pw: true
-  packages:
-    - openssh-server
-    - open-vm-tools
   storage:
     layout:
       name: direct
@@ -29,10 +34,15 @@ autoinstall:
           gateway4: 192.168.0.1
           nameservers:
             addresses: [8.8.8.8, 8.8.4.4]
+  packages:
+    - openssh-server
+    - open-vm-tools
   user-data:
+    package_upgrade: true
+    timezone: UTC
     disable_root: false
   late-commands:
     - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
     - chmod 440 /target/etc/sudoers.d/ubuntu
-    - sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /target/etc/ssh/sshd_config
-    - sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /target/etc/ssh/sshd_config
+    - "sed -i 's/^#*\\(PermitRootLogin\\) .*/\\1 yes/' /target/etc/ssh/sshd_config"
+    - "sed -i 's/^#*\\(PasswordAuthentication\\) .*/\\1 yes/' /target/etc/ssh/sshd_config"

@@ -6,7 +6,7 @@
   "datacenter": "NCH-01",
   "datastore": "datastore1",
   "folder": "Templates",
-  "host": "esxi-host-name", 
+  "host": "esxi-host-name",
   "network": "Local-Network",
   "vm-cpu-num": "2",
   "vm-mem-size": "2048",

@@ -20,6 +20,7 @@
       ],
       "boot_order": "disk,cdrom",
       "guest_os_type": "ubuntu64Guest",
+      "notes": "Built with Packer",
       "ssh_username": "{{user `ssh-username`}}",
       "ssh_password": "{{user `ssh-password`}}",
       "ssh_host": "{{user `ssh-host`}}",
@@ -45,11 +46,12 @@
       "cd_label": "cidata",
       "boot_wait": "5s",
       "boot_command": [
-        "<esc><wait>",
-        "e<wait>",
-        "<down><down><down><end>",
-        " autoinstall ds=nocloud;<wait>",
-        "<f10>"
+        "c<wait>",
+        "linux /casper/vmlinuz --- autoinstall ds=nocloud<wait>",
+        "<enter><wait>",
+        "initrd /casper/initrd<wait>",
+        "<enter><wait>",
+        "boot<enter>"
       ]
     }
   ],
