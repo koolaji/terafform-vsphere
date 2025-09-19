@@ -20,13 +20,13 @@
       ],
       "boot_order": "disk,cdrom",
       "guest_os_type": "ubuntu64Guest",
-      "notes": "Built with Packer",
-      "ssh_username": "{{user `ssh-username`}}",
-      "ssh_password": "{{user `ssh-password`}}",
+      "ssh_username": "ubuntu",
+      "ssh_password": "",  // Empty password initially
       "ssh_host": "{{user `ssh-host`}}",
       "ssh_port": 22,
       "ssh_timeout": "30m",
       "ssh_handshake_attempts": "100",
+      "ssh_private_key_file": "./id_rsa",  // Use SSH key for initial connection
       "CPUs": "{{user `vm-cpu-num`}}",
       "RAM": "{{user `vm-mem-size`}}",
       "RAM_reserve_all": true,
@@ -41,7 +41,8 @@
       "iso_checksum": "{{user `iso-checksum-type`}}:{{user `iso-checksum`}}",
       "cd_files": [
         "./meta-data",
-        "./user-data"
+        "./user-data",
+        "./id_rsa.pub"  // Include SSH public key
       ],
       "cd_label": "cidata",
       "boot_wait": "5s",
@@ -59,6 +60,9 @@
     {
       "type": "shell",
       "inline": [
+        "echo 'Setting password for ubuntu user...'",
+        "echo 'ubuntu:ubuntu' | sudo chpasswd",
+        "echo 'Password set successfully'",
         "sudo rm /etc/machine-id", 
         "sudo touch /etc/machine-id",
         "echo 'Packer Template Build -- Complete'"

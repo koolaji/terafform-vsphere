@@ -1,23 +1,13 @@
 #cloud-config
 autoinstall:
   version: 1
-  apt:
-    geoip: true
-    preserve_sources_list: false
-    primary:
-      - arches: [amd64, i386]
-        uri: http://archive.ubuntu.com/ubuntu
-      - arches: [default]
-        uri: http://ports.ubuntu.com/ubuntu-ports
-  early-commands:
-    - systemctl stop ssh
   locale: en_US
   keyboard:
     layout: us
   identity:
     hostname: ubuntu-server
     username: ubuntu
-    password: "$6$rounds=4096$J86aZz0Q$kTUvkqbZJWQZP.e/sWXPx8J5C1y1Mu0hPWpMnRJCaKKUmM5CU8Z9ZljnTVkm3GtQVercC3m3NzBxj8hzxvBZ51"
+    # No password - we'll set it later in provisioner
   ssh:
     install-server: true
     allow-pw: true
@@ -38,8 +28,6 @@ autoinstall:
     - openssh-server
     - open-vm-tools
   user-data:
-    package_upgrade: true
-    timezone: UTC
     disable_root: false
   late-commands:
     - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
