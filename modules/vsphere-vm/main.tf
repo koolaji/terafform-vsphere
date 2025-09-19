@@ -46,6 +46,8 @@ resource "vsphere_virtual_machine" "vm" {
     template_uuid = data.vsphere_virtual_machine.template.id
 
     customize {
+      timeout = 30  # Increase customization timeout to 30 minutes
+
       linux_options {
         host_name = var.vm_name
         domain    = var.vm_domain
@@ -59,6 +61,28 @@ resource "vsphere_virtual_machine" "vm" {
       ipv4_gateway    = var.vm_gateway
       dns_server_list = var.vm_dns_servers
     }
+  }
+
+  # Don't wait for IP address since we know what it will be
+  wait_for_guest_ip_timeout = 0
+  wait_for_guest_net_timeout = 0
+
+  # Add a remote-exec provisioner to remove the static IP configuration
+  # and ensure the new IP is properly set
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = var.ssh_user
+      host        = var.vm_ip
+      private_key = file(var.ssh_private_key_path)
+    }
+
+    inline = [
+      "sudo sed -i '/192.168.0.100/d' /etc/netplan/*.yaml",  # Remove the static IP from netplan
+      "echo 'network:\\n  version: 2\\n  ethernets:\\n    ens192:\\n      dhcp4: false\\n      addresses: [${var.vm_ip}/24]\\n      gateway4: ${var.vm_gateway}\\n      nameservers:\\n        addresses: [${join(", ", var.vm_dns_servers)}]' | sudo tee /etc/netplan/01-netcfg.yaml",
+      "sudo netplan apply",
+      "echo 'IP configuration updated to ${var.vm_ip}'"
+    ]
   }
 
   lifecycle {

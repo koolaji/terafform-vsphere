@@ -27,32 +27,35 @@ provider "vsphere" {
 # Define VM configurations for this environment
 locals {
   vms = {
-    "LDAP_01" = {
-      datacenter = "NCH-01",
-      datastore  = "datastore1",
-      vsphere_cluster = "Cluster01",
-      network    = "Local-Network",
-      ip         = "192.168.0.4",
-      cpu        = 4,
-      memory     = 8192,
-      disk_size  = 100
-    },
-    "LDAP_02" = {
-      datacenter = "NCH-01",
-      datastore  = "datastore1",
-      vsphere_cluster = "Cluster01",
-      network    = "Local-Network",
-      ip         = "192.168.0.5",
-      cpu        = 4,
-      memory     = 8192,
-      disk_size  = 100
-    },
+#    "LDAP_01" = {
+#      datacenter = "NCH-01",
+#      datastore  = "datastore1",
+#      vsphere_cluster = "Cluster01",
+#      network    = "Local-Network",
+#      ip         = "192.168.0.4",
+#      netmask    = 24,  # Added netmask parameter
+#      cpu        = 4,
+#      memory     = 8192,
+#      disk_size  = 100
+#    },
+#    "LDAP_02" = {
+#      datacenter = "NCH-01",
+#      datastore  = "datastore1",
+#      vsphere_cluster = "Cluster01",
+#      network    = "Local-Network",
+#      ip         = "192.168.0.5",
+#      netmask    = 24,  # Added netmask parameter
+#      cpu        = 4,
+#      memory     = 8192,
+#      disk_size  = 100
+#    },
     "GitLab-EE" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
       vsphere_cluster = "Cluster01",
       network    = "Local-Network",
       ip         = "192.168.0.6",
+      netmask    = 24,  # Added netmask parameter
       cpu        = 4,
       memory     = 8192,
       disk_size  = 100
@@ -78,6 +81,11 @@ module "vms" {
   vm_domain     = var.vm_domain
   
   vm_ip         = each.value.ip
+  vm_netmask    = each.value.netmask  # Added netmask parameter
   vm_gateway    = var.vm_gateway
   vm_dns_servers = var.vm_dns_servers
+  
+  # SSH parameters for remote-exec provisioner
+  ssh_private_key_path = var.ssh_private_key_path
+  ssh_user             = var.ssh_user
 }

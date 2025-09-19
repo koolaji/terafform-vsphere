@@ -75,6 +75,18 @@ variable "vm_dns_servers" {
   default     = ["8.8.8.8", "8.8.4.4"]
 }
 
+variable "ssh_private_key_path" {
+  description = "Path to the SSH private key for remote-exec provisioner"
+  type        = string
+  default     = "~/.ssh/id_rsa"
+}
+
+variable "ssh_user" {
+  description = "SSH username for remote-exec provisioner"
+  type        = string
+  default     = "ubuntu"
+}
+
 variable "tags" {
   description = "Tags to apply to the VM (as a list of strings)"
   type        = list(string)
