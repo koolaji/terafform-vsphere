@@ -12,6 +12,15 @@ autoinstall:
   ssh:
     install-server: true
     allow-pw: true
+  user-data:
+    package_upgrade: true
+    users:
+      - name: packer
+        passwd: $6$xyz$74AlwKA3Z5n2L6ujMEX2lnxYbpXwEvykhLQCT5LgTfvFGYgCHa2djrLcdgaLxF0f9RCJlQwUgxHpDlX1vTLXw1
+        groups: [adm, cdrom, dip, plugdev, lxd, sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
   storage:
     layout:
       name: direct
@@ -25,8 +34,3 @@ autoinstall:
           gateway4: 192.168.0.1
           nameservers:
             addresses: [8.8.8.8, 8.8.4.4]
-  late-commands:
-    - echo 'packer ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packer
-    - chmod 440 /target/etc/sudoers.d/packer
-    - echo 'PasswordAuthentication yes' > /target/etc/ssh/sshd_config.d/allow_passwd.conf
-    - echo 'PermitRootLogin yes' >> /target/etc/ssh/sshd_config.d/allow_passwd.conf

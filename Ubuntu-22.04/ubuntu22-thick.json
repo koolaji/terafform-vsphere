@@ -2,42 +2,33 @@
   "builders": [
     {
       "type": "vsphere-iso",
-  
       "vcenter_server": "{{user `vcenter-server`}}",
       "username": "{{user `vcenter-username`}}",
       "password": "{{user `vcenter-password`}}",
       "insecure_connection": "true",
       "datacenter": "{{user `datacenter`}}",
-  
       "vm_name": "{{user `vm-name`}}",
-    
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
       "host": "{{user `host`}}",
-
-      "convert_to_template": true,
-    
+      "convert_to_template": false,
       "network_adapters": [
         {
           "network": "{{user `network`}}",
           "network_card": "vmxnet3"
         }
       ],
-    
       "boot_order": "disk,cdrom",
-  
       "guest_os_type": "ubuntu64Guest",
-  
-      "ssh_username": "{{user `ssh-username`}}",
-      "ssh_password": "{{user `ssh-password`}}",
-      "ssh_host": "{{user `ssh-host`}}",
+      "ssh_username": "packer",
+      "ssh_password": "packer",
+      "ssh_host": "192.168.0.100",
+      "ssh_port": 22,
       "ssh_timeout": "30m",
       "ssh_handshake_attempts": "100",
-  
       "CPUs": "{{user `vm-cpu-num`}}",
       "RAM": "{{user `vm-mem-size`}}",
       "RAM_reserve_all": true,
-  
       "disk_controller_type": "pvscsi",
       "storage": [
         {
@@ -45,23 +36,21 @@
           "disk_thin_provisioned": false
         }
       ],
-  
       "iso_urls": "{{user `iso-url`}}",
       "iso_checksum": "{{user `iso-checksum-type`}}:{{user `iso-checksum`}}",
-
       "cd_files": [
         "./meta-data",
         "./user-data"
-  ],
+      ],
       "cd_label": "cidata",
-      
       "boot_wait": "5s",
       "boot_command": [
-        "<esc><wait>",
-        "e<wait>",
-        "<down><down><down><end>",
-        " autoinstall ds=nocloud;<wait>",
-        "<f10>"
+        "c<wait>",
+        "linux /casper/vmlinuz --- autoinstall ds=nocloud;<wait>",
+        "<enter><wait>",
+        "initrd /casper/initrd<wait>",
+        "<enter><wait>",
+        "boot<enter><wait>"
       ]
     }
   ],
