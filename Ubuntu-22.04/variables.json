@@ -8,7 +8,7 @@
   "datacenter": "Datacenter",
   "datastore": "Datastore2_NonSSD",
   "folder": "Templates",
-  "cluster": "Cluster01",
+  "host": "esxi-host-name",
   "network": "VM Network",
   
   "vm-cpu-num": "2",

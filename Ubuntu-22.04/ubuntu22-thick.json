@@ -13,8 +13,7 @@
     
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
-      "cluster": "{{user `cluster`}}",
-      "resource_pool": "/{{user `datacenter`}}/host/{{user `cluster`}}/Resources",
+      "host": "{{user `host`}}",
       "convert_to_template": "true",
     
       "network_adapters": [
