@@ -11,7 +11,7 @@
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
       "host": "{{user `host`}}",
-      "convert_to_template": false,
+      "convert_to_template": true,
       "network_adapters": [
         {
           "network": "{{user `network`}}",
@@ -20,9 +20,9 @@
       ],
       "boot_order": "disk,cdrom",
       "guest_os_type": "ubuntu64Guest",
-      "ssh_username": "packer",
-      "ssh_password": "packer",
-      "ssh_host": "192.168.0.100",
+      "ssh_username": "{{user `ssh-username`}}",
+      "ssh_password": "{{user `ssh-password`}}",
+      "ssh_host": "{{user `ssh-host`}}",
       "ssh_port": 22,
       "ssh_timeout": "30m",
       "ssh_handshake_attempts": "100",
@@ -45,12 +45,11 @@
       "cd_label": "cidata",
       "boot_wait": "5s",
       "boot_command": [
-        "c<wait>",
-        "linux /casper/vmlinuz --- autoinstall ds=nocloud;<wait>",
-        "<enter><wait>",
-        "initrd /casper/initrd<wait>",
-        "<enter><wait>",
-        "boot<enter><wait>"
+        "<esc><wait>",
+        "e<wait>",
+        "<down><down><down><end>",
+        " autoinstall ds=nocloud;<wait>",
+        "<f10>"
       ]
     }
   ],

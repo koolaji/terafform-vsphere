@@ -1,26 +1,21 @@
 #cloud-config
 autoinstall:
   version: 1
-  locale: en_US.UTF-8
+  early-commands:
+    - systemctl stop ssh
+  locale: en_US
   keyboard:
     layout: us
   identity:
     hostname: ubuntu-server
-    username: packer
-    # This is "packer" hashed
-    password: "$6$rounds=4096$2RjBJvyXEY$QgvXyAO6MJoMEPVJrS8KzJlSuGPXdAAzLYjS0J3A1Iw7kIqjWRfOVTPU2v.ePIjbRvHNzSYTP0rxETJKm0/7k1"
+    username: ubuntu
+    password: '$6$xyz$74AlwKA3Z5n2L6ujMEX2lnxYbpXwEvykhLQCT5LgTfvFGYgCHa2djrLcdgaLxF0f9RCJlQwUgxHpDlX1vTLXw1'
   ssh:
     install-server: true
     allow-pw: true
-  user-data:
-    package_upgrade: true
-    users:
-      - name: packer
-        passwd: $6$xyz$74AlwKA3Z5n2L6ujMEX2lnxYbpXwEvykhLQCT5LgTfvFGYgCHa2djrLcdgaLxF0f9RCJlQwUgxHpDlX1vTLXw1
-        groups: [adm, cdrom, dip, plugdev, lxd, sudo]
-        lock-passwd: false
-        sudo: ALL=(ALL) NOPASSWD:ALL
-        shell: /bin/bash
+  packages:
+    - openssh-server
+    - open-vm-tools
   storage:
     layout:
       name: direct
@@ -34,3 +29,10 @@ autoinstall:
           gateway4: 192.168.0.1
           nameservers:
             addresses: [8.8.8.8, 8.8.4.4]
+  user-data:
+    disable_root: false
+  late-commands:
+    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+    - chmod 440 /target/etc/sudoers.d/ubuntu
+    - sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /target/etc/ssh/sshd_config
+    - sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /target/etc/ssh/sshd_config
