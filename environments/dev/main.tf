@@ -30,6 +30,7 @@ locals {
     "vm1" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
+      vsphere_cluster= "Cluster01"
       network    = "Local-Network",
       ip         = "192.168.0.4",
       cpu        = 4,
@@ -41,6 +42,7 @@ locals {
       datacenter = "NCH-01",
       datastore  = "datastore1",
       network    = "Local-Network",
+      vsphere_cluster = "Cluster01"
       ip         = "192.168.0.5",
       cpu        = 4,
       memory     = 8192,
@@ -51,6 +53,7 @@ locals {
       datacenter = "NCH-01",
       datastore  = "datastore1",
       network    = "Local-Network",
+      vsphere_cluster= "Cluster01"
       ip         = "192.168.0.6",
       cpu        = 4,
       memory     = 8192,
