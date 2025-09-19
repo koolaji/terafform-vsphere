@@ -27,38 +27,35 @@ provider "vsphere" {
 # Define VM configurations for this environment
 locals {
   vms = {
-    "vm1" = {
+    "LDAP_01" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
-      vsphere_cluster= "Cluster01"
+      vsphere_cluster = "Cluster01",
       network    = "Local-Network",
       ip         = "192.168.0.4",
       cpu        = 4,
       memory     = 8192,
-      disk_size  = 100,
-      tags       = { environment = "dev", role = "LDAP_01" }
+      disk_size  = 100
     },
-    "vm2" = {
+    "LDAP_02" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
+      vsphere_cluster = "Cluster01",
       network    = "Local-Network",
-      vsphere_cluster = "Cluster01"
       ip         = "192.168.0.5",
       cpu        = 4,
       memory     = 8192,
-      disk_size  = 100,
-      tags       = { environment = "dev", role = "LDAP_02" }
+      disk_size  = 100
     },
-    "vm3" = {
+    "GitLab-EE" = {
       datacenter = "NCH-01",
       datastore  = "datastore1",
+      vsphere_cluster = "Cluster01",
       network    = "Local-Network",
-      vsphere_cluster= "Cluster01"
       ip         = "192.168.0.6",
       cpu        = 4,
       memory     = 8192,
-      disk_size  = 100,
-      tags       = { environment = "dev", role = "GitLab-EE" }
+      disk_size  = 100
     }
   }
 }
@@ -70,11 +67,11 @@ module "vms" {
 
   vsphere_datacenter = each.value.datacenter
   vsphere_datastore  = each.value.datastore
-  vsphere_cluster    = each.value.cluster
+  vsphere_cluster    = each.value.vsphere_cluster
   vsphere_network    = each.value.network
   
   template_name = var.template_name
-  vm_name       = "${var.vm_name_prefix}-${each.key}"
+  vm_name       = each.key  # Using the actual VM name directly instead of a prefix
   vm_cpu        = each.value.cpu
   vm_memory     = each.value.memory
   vm_disk_size  = each.value.disk_size
@@ -83,6 +80,4 @@ module "vms" {
   vm_ip         = each.value.ip
   vm_gateway    = var.vm_gateway
   vm_dns_servers = var.vm_dns_servers
-  
-  tags          = each.value.tags
 }
