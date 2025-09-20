@@ -23,8 +23,7 @@ provider "vsphere" {
   vsphere_server       = var.vsphere_server
   allow_unverified_ssl = true
   
-  # Add provider-level timeout
-  client_timeout = 30
+  # Note: The vSphere provider doesn't support a client_timeout parameter
 }
 
 # Define VM configurations for this environment
