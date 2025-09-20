@@ -22,6 +22,9 @@ provider "vsphere" {
   password             = var.vsphere_password
   vsphere_server       = var.vsphere_server
   allow_unverified_ssl = true
+  
+  # Add provider-level timeout
+  client_timeout = 30
 }
 
 # Define VM configurations for this environment
@@ -33,7 +36,7 @@ locals {
      vsphere_cluster = "Cluster01",
      network    = "Local-Network",
      ip         = "192.168.0.4",
-     netmask    = 24,  # Added netmask parameter
+     netmask    = 24,
      cpu        = 4,
      memory     = 8192,
      disk_size  = 100
@@ -44,7 +47,7 @@ locals {
      vsphere_cluster = "Cluster01",
      network    = "Local-Network",
      ip         = "192.168.0.5",
-     netmask    = 24,  # Added netmask parameter
+     netmask    = 24,
      cpu        = 4,
      memory     = 8192,
      disk_size  = 100
@@ -55,7 +58,7 @@ locals {
       vsphere_cluster = "Cluster01",
       network    = "Local-Network",
       ip         = "192.168.0.6",
-      netmask    = 24,  # Added netmask parameter
+      netmask    = 24,
       cpu        = 8,
       memory     = 16000,
       disk_size  = 100
@@ -74,18 +77,23 @@ module "vms" {
   vsphere_network    = each.value.network
   
   template_name = var.template_name
-  vm_name       = each.key  # Using the actual VM name directly instead of a prefix
+  vm_name       = each.key
   vm_cpu        = each.value.cpu
   vm_memory     = each.value.memory
   vm_disk_size  = each.value.disk_size
   vm_domain     = var.vm_domain
   
   vm_ip         = each.value.ip
-  vm_netmask    = each.value.netmask  # Added netmask parameter
+  vm_netmask    = each.value.netmask
   vm_gateway    = var.vm_gateway
   vm_dns_servers = var.vm_dns_servers
   
   # SSH parameters for remote-exec provisioner
   ssh_password  = var.ssh_password
   ssh_user      = var.ssh_user
+  
+  # Set timeout parameters
+  customize_timeout = 30
+  wait_for_guest_ip_timeout = 30
+  wait_for_guest_net_timeout = 30
 }

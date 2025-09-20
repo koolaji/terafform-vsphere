@@ -46,8 +46,7 @@ resource "vsphere_virtual_machine" "vm" {
     template_uuid = data.vsphere_virtual_machine.template.id
 
     customize {
-      timeout = 30  # Increase customization timeout to 30 minutes
-
+      timeout = var.customize_timeout  # Use the variable for customization timeout
       linux_options {
         host_name = var.vm_name
         domain    = var.vm_domain
@@ -63,10 +62,9 @@ resource "vsphere_virtual_machine" "vm" {
     }
   }
 
-  # Don't wait for IP address since we know what it will be
-  wait_for_guest_ip_timeout = 0
-  wait_for_guest_net_timeout = 0
-
+  # Use the variables for guest IP and network timeouts
+  wait_for_guest_ip_timeout  = var.wait_for_guest_ip_timeout
+  wait_for_guest_net_timeout = var.wait_for_guest_net_timeout
   # Add a remote-exec provisioner to remove the static IP configuration
   # and ensure the new IP is properly set
   provisioner "remote-exec" {
@@ -75,11 +73,12 @@ resource "vsphere_virtual_machine" "vm" {
       user        = var.ssh_user
       host        = var.vm_ip
       password    = var.ssh_password
+      timeout     = "${var.customize_timeout}m"  # Set SSH connection timeout to match customize_timeout
     }
 
     inline = [
-      "sudo rm /etc/netplan/50*.yaml*", 
-      "sudo rm /etc/cloud/cloud.cfg.d/90-installer-network.cfg",
+      "sudo rm -f /etc/netplan/50*.yaml*",  # Added -f flag to prevent errors if files don't exist
+      "sudo rm -f /etc/cloud/cloud.cfg.d/90-installer-network.cfg",  # Added -f flag
       "sudo netplan apply",
       "echo 'IP configuration updated to ${var.vm_ip}'"
     ]

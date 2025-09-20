@@ -92,3 +92,21 @@ variable "tags" {
   type        = list(string)
   default     = []
 }
+
+variable "customize_timeout" {
+  description = "Timeout for VM customization in minutes"
+  type        = number
+  default     = 30
+}
+
+variable "wait_for_guest_ip_timeout" {
+  description = "Timeout for waiting for guest IP address in minutes"
+  type        = number
+  default     = 30
+}
+
+variable "wait_for_guest_net_timeout" {
+  description = "Timeout for waiting for guest network in minutes"
+  type        = number
+  default     = 30
+}
