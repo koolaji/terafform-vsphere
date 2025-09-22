@@ -13,7 +13,8 @@ autoinstall:
     allow-pw: true
   storage:
     layout:
-      name: direct
+      name: lvm
+      sizing-policy: all
   network:
     network:
       version: 2
@@ -27,6 +28,7 @@ autoinstall:
   packages:
     - openssh-server
     - open-vm-tools
+    - lvm2
   user-data:
     disable_root: false
   late-commands:
