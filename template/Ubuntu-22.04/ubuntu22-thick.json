@@ -40,18 +40,21 @@
       "iso_checksum": "{{user `iso-checksum-type`}}:{{user `iso-checksum`}}",
       "cd_files": [
         "./meta-data",
-        "./user-data",
-        "./id_rsa.pub"  // Include SSH public key
+        "./user-data"
       ],
       "cd_label": "cidata",
-      "boot_wait": "5s",
+      "boot_wait": "10s",
       "boot_command": [
-        "c<wait>",
-        "linux /casper/vmlinuz --- autoinstall ds=nocloud<wait>",
-        "<enter><wait>",
-        "initrd /casper/initrd<wait>",
-        "<enter><wait>",
-        "boot<enter>"
+        "<esc><wait>",
+        "e<wait>",
+        "<down><down><down><end>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "autoinstall ds=nocloud;<wait>",
+        "<f10><wait>"
       ]
     }
   ],
